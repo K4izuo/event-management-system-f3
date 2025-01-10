@@ -15,6 +15,7 @@ const App = () => {
           <Route path="/" element={<LoginForm />} />
           <Route path="/register" element={<AdminRegister />} />
           <Route path="/dashboard" element={<Dashboard />} />
+          {/* <Route path="/logout" element={<LoginForm />} /> */}
         </Routes>
       </Router>
     </AuthProvider>

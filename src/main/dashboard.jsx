@@ -31,6 +31,22 @@ const EventDashboard = () => {
   // Configure polling interval (in milliseconds)
   const POLLING_INTERVAL = 1000; // Poll every 5 seconds
 
+  const handleLogout = async () => {
+    try {
+      const response = await axios.post(`${configDB.apiUrl}/logout`);
+      if (response.data.success) {
+        // Clear any local storage or session data
+        localStorage.removeItem('token');
+        sessionStorage.clear();
+        // Redirect to login page
+        window.location.href = '/';
+      }
+    } catch (error) {
+      setError('Failed to logout. Please try again.');
+      console.error('Logout error:', error);
+    }
+  };
+
   const fetchEvents = useCallback(async () => {
     try {
       const response = await axios.get(`${configDB.apiUrl}/events-data`, {
