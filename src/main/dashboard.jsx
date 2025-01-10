@@ -10,6 +10,7 @@ import {
   Menu,
   Edit,
   Trash2,
+  LogOut
 } from "lucide-react";
 import axios from "axios";
 import CreateEventModal from "../EventsServices/AddEvent";
@@ -27,6 +28,7 @@ const EventDashboard = () => {
   const [isDeleting, setIsDeleting] = useState(false);
   const [lastUpdate, setLastUpdate] = useState(null);
   const [error, setError] = useState(null);
+  const [showUserMenu, setShowUserMenu] = useState(false);
 
   // Configure polling interval (in milliseconds)
   const POLLING_INTERVAL = 1000; // Poll every 5 seconds
