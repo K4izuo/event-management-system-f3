@@ -35,17 +35,30 @@ const EventDashboard = () => {
 
   const handleLogout = async () => {
     try {
-      const response = await axios.post(`${configDB.apiUrl}/logout`);
+      const response = await axios.post(`${configDB.apiUrl}/logout`, {}, {
+        withCredentials: true,
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+      
       if (response.data.success) {
-        // Clear any local storage or session data
         localStorage.removeItem('token');
         sessionStorage.clear();
-        // Redirect to login page
-        window.location.href = '/';
+        
+        setTimeout(() => {
+          window.location.href = '/';
+        }, 100);
+      } else {
+        setError('Logout failed. Please try again.');
       }
     } catch (error) {
-      setError('Failed to logout. Please try again.');
       console.error('Logout error:', error);
+      
+      // Implement graceful degradation for network issues
+      localStorage.removeItem('token');
+      sessionStorage.clear();
+      window.location.href = '/';
     }
   };
 
